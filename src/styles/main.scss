@@ -19,6 +19,9 @@ $topbar-text-color: #32649b;
 // margins
 $topbar-margin: 40px;
 
+// shadows
+$boxes-shadow: 0px 14px 34px rgba(0, 0, 0, 0.18);
+
 body {
     background: #f9f9f9;
 }
@@ -26,6 +29,7 @@ body {
 @mixin general-flex {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 @mixin navbar {

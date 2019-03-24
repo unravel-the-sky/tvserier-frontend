@@ -1,7 +1,7 @@
 <template>
   <div class="main-page-holder">
-    wee
-    <top-bar class="topbar-holder"></top-bar>
+    <top-bar class="topbar-holder" :username="username"></top-bar>
+    hello {{username}}!
     <!-- <main-panel class="main-panel-holder" :organisations="organisations"></main-panel> -->
   </div>
 </template>
@@ -36,6 +36,13 @@ export default {
   data() {
     return {
       tvShows: null
+    }
+  },
+  props: {
+    username: {
+      type: String,
+      required: true,
+      default: 'n/a'
     }
   },
   mounted() {
