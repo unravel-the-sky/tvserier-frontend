@@ -9,6 +9,13 @@
         <span class="title">{{card.showName}}</span>
         <span class="subtitle">Rating: {{card.rating}}</span>
         <span class="subtitle">Released Episodes: {{card.numReleasedEpisodes}} / {{card.numEpisodes}}</span>
+        <span class="subtitle">
+          Genres:
+          <span v-for="(genre, index) in card.genres" :key="genre.name">
+            {{genre}}
+            <span v-if="index !== card.genres.length - 1">,</span>
+          </span>
+        </span>
         <span class="summary" v-html="card.summary"></span>
       </div>
       <div class="modal-footer"></div>
@@ -53,7 +60,7 @@
   }
 
   .subtitle {
-      display: block;
+    display: block;
   }
 }
 </style>

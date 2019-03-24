@@ -15,11 +15,12 @@
         <show-card class="showspanel-data" v-for="(item, index) in showsData" :key="item.showName" :card="item" :isTopTen="isTopTen" :order="index+1"></show-card>
       </div>
       <div v-else class="days">
-        <div v-for="day in days" :key="day.name" class="day">
+        <div v-for="(day, index) in days" :key="day.name" class="day">
           {{day}}
           <div class="shows-holder">
-            <div class="shows">show</div>
-            <div class="shows">show</div>
+            <div v-for="show in showsData" :key="show.showName">
+              <div v-if="showIsThisDay(index, show)" class="show">{{show.showName}} - Season: {{show.season}} / Episode: {{show.number}}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -43,14 +44,28 @@
     width: 90vw !important;
 
     .day {
-      //   width: 15%;
-      background: yellow;
+      &:nth-child(odd) {
+        background: #a3fdff;
+      }
+      &:nth-child(even) {
+        background: #c5ffa3;
+      }
+
       margin: 10px;
-      padding: 10px;
+      padding: 20px;
       height: 200px;
+      border-radius: 15px;
 
       .shows-holder {
-          display: flex;
+        display: flex;
+
+        .show {
+          display: block;
+          background: white;
+          padding: 5px;
+          margin: 10px;
+          border-radius: 5px;
+        }
       }
     }
   }
@@ -85,7 +100,7 @@ export default {
       dataOptionName: null,
       isTopTen: false,
       isNextWeek: false,
-      days: ['MONDAY', 'TUESDAY', 'WEDENSDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
+      days: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
     }
   },
   components: {
@@ -114,7 +129,6 @@ export default {
           this.getTopTen()
           break;
         case 'nextWeek':
-          //   alert('undefined action, yet')
           console.log('get next week!')
           this.isNextWeek = true
           this.getNextWeek();
@@ -140,7 +154,17 @@ export default {
       this.dataOptionName = 'top 10'
     },
     async getNextWeek() {
-      this.showsData = 1;
+      const result = await api.getNextWeekShows();
+      console.log('next week!!: ', result);
+      //   this.showsData = result;
+      this.showsData = result;
+      this.dataOptionName = 'Whats up next week!'
+    },
+    showIsThisDay(index, show) {
+      const convertedShowDate = new Date(Date.parse(show.airdate));
+      const showDayNumber = Math.abs(convertedShowDate.getDay() - 6);
+      const isThisDay = index === showDayNumber;
+      return isThisDay;
     },
     async getByNetworks() {
 
