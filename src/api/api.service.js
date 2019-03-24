@@ -1,35 +1,70 @@
-import axios from 'axios'
+import axios from "axios";
 
-const backendUrl = 'http://localhost:5000'
-const getAllProductsUrl = `${backendUrl}/api/shows`
+const backendUrl = "http://localhost:5000";
+const getAllShowsUrl = `${backendUrl}/api/shows`;
+const getAllEpisodesUrl = `${backendUrl}/api/shows/episodes`;
+const readFromConfigFileUrl = `${backendUrl}/api/shows/read`;
+const getTopTenUrl = `${backendUrl}/api/shows/topten`;
+const getNextWeekShowsUrl = `${backendUrl}/api/shows/nextweek`;
+const getByNetworksUrl = `${backendUrl}/api/shows/network`;
 
-const handleResponse = (res) => {
-    // const result = {
-    //     error: false,
-    //     status: res.status,
-    //     statusText: res.statusText,
-    //     data: res.data
-    // }
-    console.log('whoaa: ', res)
-    return res
-}
+const handleResponse = res => {
+  // const result = {
+  //     error: false,
+  //     status: res.status,
+  //     statusText: res.statusText,
+  //     data: res.data
+  // }
+  console.log("data: ", res);
+  return res;
+};
 
 const handleError = (err, methodName) => {
-    console.error(`error on ${methodName}: ${err}`)
-    // const error = {
-    //     error: true,
-    //     status: err.response.status,
-    //     statusText: err.response.statusText,
-    //     data: err.response.data
-    // }
-    return err
-}
+  console.error(`error on ${methodName}: ${err}`);
+  return err;
+};
 
 export default {
-    getAllProducts() {
-        console.log('url: ', getAllProductsUrl)
-        return axios.get(getAllProductsUrl)
-            .then(res => handleResponse(res))
-            .catch(err => handleError(err, 'getAllProducts'))
-    }
-}
+  getAllShows() {
+    console.log("url: ", getAllShowsUrl);
+    return axios
+      .get(getAllShowsUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "getAllShows"));
+  },
+  getAllEpisodes() {
+    console.log("url: ", getAllEpisodesUrl);
+    return axios
+      .get(getAllShowsUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "getAllEpisodes"));
+  },
+  readFromConfigFile() {
+    console.log("url: ", readFromConfigFileUrl);
+    return axios
+      .get(getAllShowsUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "readFromConfigFile"));
+  },
+  getTopTen() {
+    console.log("url: ", getTopTenUrl);
+    return axios
+      .get(getAllShowsUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "getTopTen"));
+  },
+  getNextWeekShows() {
+    console.log("url: ", getNextWeekShowsUrl);
+    return axios
+      .get(getAllShowsUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "getNextWeekShows"));
+  },
+  getByNetworks() {
+    console.log("url: ", getByNetworksUrl);
+    return axios
+      .get(getAllShowsUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "getByNetworksƒ"));
+  }
+};
