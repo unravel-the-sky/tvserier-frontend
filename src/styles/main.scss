@@ -7,7 +7,7 @@ $tablet-width: 769px;
 // spacing
 $default-padding-small: 10px;
 $default-padding-large: 20px;
-$logo-height: 90px;
+$logo-height: 40px;
 
 // fonts
 $main-font-style: 'Roboto',
@@ -20,7 +20,8 @@ $topbar-text-color: #32649b;
 $topbar-margin: 40px;
 
 // shadows
-$boxes-shadow: 0px 14px 34px rgba(0, 0, 0, 0.18);
+$boxes-shadow: 0px 14px 14px rgba(0, 0, 0, 0.18);
+$button-shadow: 2px 3px 4px rgba(0, 0, 0, 0.18);
 
 body {
     background: #f9f9f9;
@@ -39,5 +40,20 @@ body {
     position: fixed;
     background: white;
     height: $topbar-margin;
-    // justify-content: center;
+    justify-content: center;
+}
+
+@mixin button {
+    margin-top: 10px;
+    padding: 5px;
+    background: green;
+    border-radius: 5px;
+    width: 40%;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: $button-shadow;
+    }
 }

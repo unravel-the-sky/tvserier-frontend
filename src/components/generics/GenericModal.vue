@@ -24,41 +24,22 @@
 .modal-container {
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 8% auto 0;
-  border-radius: $button-border-radius;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   text-align: left;
   position: relative;
-  -webkit-overflow-scrolling: touch;
   overflow-y: hidden;
-}
-@media (max-width: $mobile-width) {
-  .modal-container {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-  }
-}
-@media (min-width: 450px) {
-  .modal-container {
-    max-width: 90%;
-  }
-}
-@media (min-width: 1060px) {
-  .modal-container {
-    margin: 0 auto;
-  }
+  width: 50%;
 }
 .modal-enter {
   opacity: 0;
 }
-
 .modal-leave-active {
   opacity: 0;
 }
-
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
@@ -78,16 +59,10 @@ export default {
   mounted() {
     document.addEventListener('keydown', event => {
       if (this.show && event.keyCode == 27) {
-        // this is to catch ESC events
         this.close();
         console.log('hello you pressed ESC');
       }
     });
   },
-
-  created() {
-    console.log('hello i am a modal');
-    console.log('user agent: ', navigator.appVersion);
-  }
 };
 </script>

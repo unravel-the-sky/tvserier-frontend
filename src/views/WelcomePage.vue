@@ -29,22 +29,15 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        transform: scale(1.1);
-        transition: all 0.2s ease-in-out;
+      transform: scale(1.1);
+      transition: all 0.2s ease-in-out;
     }
 
     .welcome-text {
       font-size: 14px;
     }
     .button {
-      margin-top: 10px;
-      padding: 5px;
-      background: green;
-      border-radius: 5px;
-      width: 40%;
-      text-align: center;
-      color: white;
-      cursor: pointer;
+      @include button;
     }
   }
 }
@@ -72,11 +65,18 @@ export default {
       username: ''
     }
   },
+  created() {
+    const username = localStorage.getItem('username')
+    if (username) {
+      this.username = username;
+      this.$router.push({ name: 'home', params: { username: this.username } });
+    }
+  },
   methods: {
     handleClick() {
       if (this.username !== '') {
+        localStorage.setItem('username', this.username);
         this.$router.push({ name: 'home', params: { username: this.username } });
-        
       } else {
         alert('please enter a username!')
       }

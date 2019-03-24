@@ -9,14 +9,13 @@ const getNextWeekShowsUrl = `${backendUrl}/api/shows/nextweek`;
 const getByNetworksUrl = `${backendUrl}/api/shows/network`;
 
 const handleResponse = res => {
-  // const result = {
-  //     error: false,
-  //     status: res.status,
-  //     statusText: res.statusText,
-  //     data: res.data
-  // }
-  console.log("data: ", res);
-  return res;
+  const result = {
+      error: false,
+      status: res.status,
+      statusText: res.statusText,
+      data: res.data
+  }
+  return result.data;
 };
 
 const handleError = (err, methodName) => {
@@ -35,35 +34,35 @@ export default {
   getAllEpisodes() {
     console.log("url: ", getAllEpisodesUrl);
     return axios
-      .get(getAllShowsUrl)
+      .get(getAllEpisodesUrl)
       .then(res => handleResponse(res))
       .catch(err => handleError(err, "getAllEpisodes"));
   },
   readFromConfigFile() {
     console.log("url: ", readFromConfigFileUrl);
     return axios
-      .get(getAllShowsUrl)
+      .get(readFromConfigFileUrl)
       .then(res => handleResponse(res))
       .catch(err => handleError(err, "readFromConfigFile"));
   },
   getTopTen() {
     console.log("url: ", getTopTenUrl);
     return axios
-      .get(getAllShowsUrl)
+      .get(getTopTenUrl)
       .then(res => handleResponse(res))
       .catch(err => handleError(err, "getTopTen"));
   },
   getNextWeekShows() {
     console.log("url: ", getNextWeekShowsUrl);
     return axios
-      .get(getAllShowsUrl)
+      .get(getNextWeekShowsUrl)
       .then(res => handleResponse(res))
       .catch(err => handleError(err, "getNextWeekShows"));
   },
   getByNetworks() {
     console.log("url: ", getByNetworksUrl);
     return axios
-      .get(getAllShowsUrl)
+      .get(getByNetworksUrl)
       .then(res => handleResponse(res))
       .catch(err => handleError(err, "getByNetworksƒ"));
   }
