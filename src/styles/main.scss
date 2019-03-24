@@ -1,0 +1,39 @@
+// @import 'reset';
+
+// devices
+$mobile-width: 425px;
+$tablet-width: 769px;
+
+// spacing
+$default-padding-small: 10px;
+$default-padding-large: 20px;
+$logo-height: 90px;
+
+// fonts
+$main-font-style: 'Roboto',
+sans-serif;
+
+// colors
+$topbar-text-color: #32649b;
+
+// margins
+$topbar-margin: 40px;
+
+body {
+    background: #f9f9f9;
+}
+
+@mixin general-flex {
+    display: flex;
+    align-items: center;
+}
+
+@mixin navbar {
+    @include general-flex;
+
+    width: 100%;
+    position: fixed;
+    background: white;
+    height: $topbar-margin;
+    // justify-content: center;
+}
