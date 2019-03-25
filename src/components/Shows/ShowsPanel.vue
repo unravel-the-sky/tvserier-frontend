@@ -26,9 +26,11 @@
         </div>
       </div>
       <div v-else class="networks">
-          <networks-card :networksData="showsData"></networks-card>
+        <networks-card :networksData="showsData"></networks-card>
       </div>
     </div>
+
+    <upload-modal v-if="showUploadModal" @close="showUploadModal = !showUploadModal"></upload-modal>
   </div>
 </template>
 
@@ -101,6 +103,7 @@ export default {
   name: 'shows-panel',
   data() {
     return {
+      showUploadModal: false,
       showsData: null,
       dataOptionName: null,
       isTopTen: false,
@@ -112,6 +115,7 @@ export default {
   components: {
     'show-card': () => import('./../Shows/ShowCard.vue'),
     'networks-card': () => import('./../Shows/NetworkCard.vue'),
+    'upload-modal': () => import('./../Shows/UploadModal.vue')
   },
   methods: {
     goBack() {
@@ -125,8 +129,9 @@ export default {
 
       switch (option) {
         case 'upload':
-          alert('undefined action, yet')
-          console.log('undefined action')
+          //   alert('undefined action, yet')
+          //   console.log('undefined action')
+          this.showUploadModal = true
           break;
         case 'allShows':
           this.getAllShows();
@@ -144,21 +149,21 @@ export default {
     },
     async getAllShows() {
       const result = await api.getAllShows();
-      console.log('dataaa: ', result);
-      this.showsData = result;
+      console.log('dataaa: ', result.data);
+      this.showsData = result.data;
       this.dataOptionName = 'all shows'
     },
     async getTopTen() {
       const result = await api.getTopTen();
-      console.log('top 10!: ', result);
-      this.showsData = result;
+      console.log('top 10!: ', result.data);
+      this.showsData = result.data;
       this.isTopTen = true;
       this.dataOptionName = 'top 10'
     },
     async getNextWeek() {
       const result = await api.getNextWeekShows();
-      console.log('next week!!: ', result);
-      this.showsData = result;
+      console.log('next week!!: ', result.data);
+      this.showsData = result.data;
       this.isNextWeek = true
       this.dataOptionName = 'Whats up next week!'
     },
@@ -170,8 +175,8 @@ export default {
     },
     async getByNetworks() {
       const result = await api.getByNetworks();
-      console.log('networks!!: ', result);
-      this.showsData = result;
+      console.log('networks!!: ', result.data);
+      this.showsData = result.data;
       this.isNetworks = true;
       this.dataOptionName = 'Sort by networks'
     }

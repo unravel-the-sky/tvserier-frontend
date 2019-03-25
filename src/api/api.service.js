@@ -9,6 +9,8 @@ const getNextWeekShowsUrl = `${backendUrl}/api/shows/nextweek`;
 const getByNetworksUrl = `${backendUrl}/api/shows/network`;
 const getGenresUrl = `${backendUrl}/api/shows/genres`;
 
+const uploadFileUrl = `${backendUrl}/api/shows/upload`;
+
 const handleResponse = res => {
   const result = {
       error: false,
@@ -16,7 +18,7 @@ const handleResponse = res => {
       statusText: res.statusText,
       data: res.data
   }
-  return result.data;
+  return result;
 };
 
 const handleError = (err, methodName) => {
@@ -73,5 +75,16 @@ export default {
       .get(getGenresUrl)
       .then(res => handleResponse(res))
       .catch(err => handleError(err, "getGenres"));
+  },
+  uploadFile(formData) {
+    console.log("url: ", uploadFileUrl);
+    return axios
+      .post(uploadFileUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "uploadFile"));
   }
 };
