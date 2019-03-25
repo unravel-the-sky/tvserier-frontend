@@ -98,6 +98,7 @@
 
 <script>
 import api from './../../api/api.service'
+import fs from 'fs';
 
 export default {
   name: 'shows-panel',
@@ -179,6 +180,16 @@ export default {
       this.showsData = result.data;
       this.isNetworks = true;
       this.dataOptionName = 'Sort by networks'
+    },
+    writeToFile() {
+      const data = 'testing';
+      try {
+        const result = fs.writeFileSync('Output.txt', data)
+        //file written successfully
+        console.log(result)
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }
