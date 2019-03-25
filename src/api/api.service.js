@@ -7,6 +7,7 @@ const readFromConfigFileUrl = `${backendUrl}/api/shows/read`;
 const getTopTenUrl = `${backendUrl}/api/shows/topten`;
 const getNextWeekShowsUrl = `${backendUrl}/api/shows/nextweek`;
 const getByNetworksUrl = `${backendUrl}/api/shows/network`;
+const getGenresUrl = `${backendUrl}/api/shows/genres`;
 
 const handleResponse = res => {
   const result = {
@@ -64,6 +65,13 @@ export default {
     return axios
       .get(getByNetworksUrl)
       .then(res => handleResponse(res))
-      .catch(err => handleError(err, "getByNetworksƒ"));
+      .catch(err => handleError(err, "getByNetworks"));
+  },
+  getGenres() {
+    console.log("url: ", getGenresUrl);
+    return axios
+      .get(getGenresUrl)
+      .then(res => handleResponse(res))
+      .catch(err => handleError(err, "getGenres"));
   }
 };

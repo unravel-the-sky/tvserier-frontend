@@ -7,14 +7,15 @@
         <div class="show-option button" @click="handleClick('allShows')">show all shows</div>
         <div class="show-option button" @click="handleClick('topTen')">show top 10 shows</div>
         <div class="show-option button" @click="handleClick('nextWeek')">show next week shows</div>
+        <div class="show-option button" @click="handleClick('networks')">show table by networks</div>
       </div>
     </div>
     <div v-else>
       <div class="showspanel-title" @click="goBack()">displaying: {{dataOptionName}}</div>
-      <div v-if="!isNextWeek" class="showspanel-data-holder">
+      <div v-if="!isNextWeek && !isNetworks" class="showspanel-data-holder">
         <show-card class="showspanel-data" v-for="(item, index) in showsData" :key="item.showName" :card="item" :isTopTen="isTopTen" :order="index+1"></show-card>
       </div>
-      <div v-else class="days">
+      <div v-else-if="!isNetworks" class="days">
         <div v-for="(day, index) in days" :key="day.name" class="day">
           {{day}}
           <div class="shows-holder">
@@ -23,6 +24,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div v-else class="networks">
+          <networks-card :networksData="showsData"></networks-card>
       </div>
     </div>
   </div>
@@ -85,7 +89,8 @@
 .button {
   @include button;
 
-  width: 120px;
+  width: 180px;
+  padding: 10px;
 }
 </style>
 
@@ -100,11 +105,13 @@ export default {
       dataOptionName: null,
       isTopTen: false,
       isNextWeek: false,
+      isNetworks: false,
       days: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
     }
   },
   components: {
     'show-card': () => import('./../Shows/ShowCard.vue'),
+    'networks-card': () => import('./../Shows/NetworkCard.vue'),
   },
   methods: {
     goBack() {
@@ -114,6 +121,7 @@ export default {
       this.showsData = null;
       this.isTopTen = false
       this.isNextWeek = false
+      this.isNetworks = false
 
       switch (option) {
         case 'upload':
@@ -121,21 +129,15 @@ export default {
           console.log('undefined action')
           break;
         case 'allShows':
-          console.log('get all shows!')
           this.getAllShows();
           break;
         case 'topTen':
-          console.log('get top 10!')
           this.getTopTen()
           break;
         case 'nextWeek':
-          console.log('get next week!')
-          this.isNextWeek = true
           this.getNextWeek();
           break;
         case 'networks':
-          alert('undefined action, yet')
-          console.log('get by networks!')
           this.getByNetworks();
           break;
       }
@@ -156,8 +158,8 @@ export default {
     async getNextWeek() {
       const result = await api.getNextWeekShows();
       console.log('next week!!: ', result);
-      //   this.showsData = result;
       this.showsData = result;
+      this.isNextWeek = true
       this.dataOptionName = 'Whats up next week!'
     },
     showIsThisDay(index, show) {
@@ -167,7 +169,11 @@ export default {
       return isThisDay;
     },
     async getByNetworks() {
-
+      const result = await api.getByNetworks();
+      console.log('networks!!: ', result);
+      this.showsData = result;
+      this.isNetworks = true;
+      this.dataOptionName = 'Sort by networks'
     }
   }
 }
