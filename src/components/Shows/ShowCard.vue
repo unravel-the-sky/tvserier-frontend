@@ -4,7 +4,7 @@
       <img :src="card.imageUrl" class="card-image">
       <span class="card-title">{{card.showName}}</span>
       <span v-if="isTopTen" class="card-title topten">{{order}}</span>
-      <span v-else class="card-title rating">{{card.rating}}</span>
+      <span v-else class="card-title rating">{{card.rating.toFixed(1)}}</span>
     </div>
 
     <showcard-modal v-if="showCardModal" @close="showCardModal = !showCardModal" :card="card"></showcard-modal>
